@@ -1,0 +1,26 @@
+<!-- MyBatis 매퍼가 사용하는 메서드 내부의 SQL쿼리를 작성하는 곳 -->
+
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 이 .xml 파일을 호출할 매퍼(MemberMapper)의 위치 -->
+<mapper namespace="com.example.boardapp.mapper.MemberMapper">
+
+  <!-- save 메서드 내부의 SQL을 정의합니다 -->
+  <!-- save 메서드: 사용자 생성(회원가입 할때 등)에 사용되는 메서드 -->
+  <insert id="save" parameterType="com.example.boardapp.domain.Member" useGeneratedKeys="true" keyProperty="id">
+    <!-- SQL INSERT문 -->
+    INSERT INTO member (username, password) VALUES (#{username}, #{password})
+  </insert>
+  <!-- save(member) => 이 객체의 데이터를 데이터베이스에 저장합니다 -->
+
+  <!-- findByUsername 메서드 내부의 SQL을 정의합니다 -->
+  <!-- findByUsername: 사용자이름(username)으로 사용자를 조회합니다 -->
+  <select id="findByUsername" parameterType="String" resultType="com.example.boardapp.domain.Member">
+    SELECT id, username, password FROM member 
+    WHERE username = #{username}
+  </select>
+  <!-- findByUsername("johndoe") => 데이터베이스에서 johndoe를 찾아줌 -->
+  
+</mapper>
